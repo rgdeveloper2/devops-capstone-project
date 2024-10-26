@@ -60,7 +60,6 @@ def create_accounts():
 ######################################################################
 # LIST ALL ACCOUNTS
 ######################################################################
-
 @app.route("/accounts", methods=["GET"])
 def list_accounts():
     """It return all accounts"""
@@ -70,41 +69,37 @@ def list_accounts():
     app.logger.info("[%s] records are returned", len(data))
     return jsonify(data), status.HTTP_200_OK
 
-
-
 ######################################################################
 # READ AN ACCOUNT
 ######################################################################
-
 @app.route("/accounts/<id>", methods=["GET"])
 def read_account(id):
     """It return a single account"""
     app.logger.info("Request to read an Account")
-    account = Account.find(id);
+    account = Account.find(id)
     if not account:
-        return "",status.HTTP_404_NOT_FOUND
+        return "", status.HTTP_404_NOT_FOUND
     return account.serialize(), status.HTTP_200_OK
 
 
 ######################################################################
 # UPDATE AN EXISTING ACCOUNT
 ######################################################################
-
 @app.route("/accounts/<int:account_id>", methods=["PUT"])
 def update_accounts(account_id):
     """Update an account and return"""
     app.logger.info("Request to update an Account with id: %s", account_id)
     account = Account.find(account_id)
     if not account:
-        abort(status.HTTP_404_NOT_FOUND,"it cannot be found")
+        abort(status.HTTP_404_NOT_FOUND, "it cannot be found")
     account.deserialize(request.get_json())
     account.update()
     return account.serialize(), status.HTTP_200_OK
 
+
 ######################################################################
 # DELETE AN ACCOUNT
 ######################################################################
-
 @app.route("/accounts/<int:account_id>", methods=["DELETE"])
 def delete_accounts(account_id):
     """
@@ -118,10 +113,9 @@ def delete_accounts(account_id):
         account.delete()
 
     return "", status.HTTP_204_NO_CONTENT
+
 #  U T I L I T Y   F U N C T I O N S
 ######################################################################
-
-
 def check_content_type(media_type):
     """Checks that the media type is correct"""
     content_type = request.headers.get("Content-Type")
