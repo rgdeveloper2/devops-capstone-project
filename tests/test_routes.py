@@ -136,7 +136,7 @@ class TestAccountService(TestCase):
             content_type="application/json"
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        data=response.get_json()
+        data = response.get_json()
         self.assertEqual(data["name"], account.name)
         self.assertEqual(data["email"], account.email)
         self.assertEqual(data["address"], account.address)
@@ -151,7 +151,7 @@ class TestAccountService(TestCase):
 
     def test_get_account_list(self):
         """It should get a list of Accounts"""
-        self._create_accounts(10);
+        self._create_accounts(10)
         response = self.client.get(
             BASE_URL,
             content_type="application/json"
