@@ -133,11 +133,11 @@ class TestAccountService(TestCase):
         account = self._create_accounts(1)[0]
         response = self.client.get(
             f"{BASE_URL}/{account.id}",
-            content_type = "application/json"
+            content_type="application/json"
         )
-        self.assertEqual(response.status_code,status.HTTP_200_OK)
-        data = response.get_json()
-        self.assertEqual(data["name"],account.name)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        data=response.get_json()
+        self.assertEqual(data["name"], account.name)
         self.assertEqual(data["email"], account.email)
         self.assertEqual(data["address"], account.address)
         self.assertEqual(data["phone_number"], account.phone_number)
@@ -154,19 +154,19 @@ class TestAccountService(TestCase):
         self._create_accounts(10);
         response = self.client.get(
             BASE_URL,
-            content_type = "application/json"
+            content_type="application/json"
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.get_json()
-        self.assertEqual(len(data),10)
+        self.assertEqual(len(data), 10)
 
     def test_update_account(self):
         """It should update an Account"""
         account = AccountFactory()
-        response =  self.client.post(
+        response = self.client.post(
             BASE_URL,
-            content_type = "application/json",
-            json = account.serialize()
+            content_type="application/json",
+            json=account.serialize()
         )
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
@@ -174,15 +174,15 @@ class TestAccountService(TestCase):
         new_account["name"] = "Test"
         response = self.client.put(
             f"{BASE_URL}/{new_account['id']}",
-            content_type= "application/json",
-            json = new_account
+            content_type="application/json",
+            json=new_account
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         updated_account = response.get_json()
-        self.assertEqual(updated_account["name"],"Test")
+        self.assertEqual(updated_account["name"], "Test")
 
     def test_delete_account(self):
-        """It should delete an Account""" 
+        """It should delete an Account"""
         account = self._create_accounts(1)[0]
         response = self.client.delete(
             f"{BASE_URL}/{account.id}"
