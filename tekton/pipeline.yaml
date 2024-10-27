@@ -32,9 +32,9 @@ spec:
         name: git-clone
       params:
       - name: url
-        value: $(params.repo-url)
+        value: "$(params.repo-url)"
       - name: revision
-        value: $(params.branch)
+        value: "$(params.branch)"
       runAfter:
         - init
       
